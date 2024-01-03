@@ -1,19 +1,10 @@
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
-import { getContacts, getFilter } from '../../redux/selectors.js';
-
-import ContactItem from 'components/ContactItem/ContactItem.jsx';
+import ContactItem from '../ContactItem/ContactItem.jsx';
 import css from './ContactList.module.css';
+import { selectVisibleContacts } from '../../redux/selectors.js';
 
 const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-
-  const listOfContact = useMemo(() => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().trim().includes(filter.toLowerCase().trim())
-    );
-  }, [contacts, filter]);
+  const listOfContact = useSelector(selectVisibleContacts);
 
   return listOfContact.length > 0 ? (
     <ul className={css.list}>
